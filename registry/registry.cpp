@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <optional>
 #include <cstdint>
-#include <iostream>
 
 namespace registry
 {
@@ -17,20 +16,25 @@ namespace registry
 		Reading channel3{ 14.0 };
 		Reading channel4{ 22.9 };
 
-		uint64_t increaseCallCount(bool returnCount = false)
+		uint64_t lookupCounter(bool increment)
 		{
 			static uint64_t callCount{ 0 };
-			if (returnCount)
+			if (!increment)
 				return callCount;
 
 			++callCount;
 			return 0;
 		}
+
+		void recordLookup()
+		{
+			lookupCounter(true);
+		}
 	}
 
 	Reading& channelRef(ChannelId id)
 	{
-		increaseCallCount();
+		recordLookup();
 
 		auto* channel{ findChannel(id) };
 		if (!channel) {
@@ -43,7 +47,7 @@ namespace registry
 
 	Reading* findChannel(ChannelId id)
 	{
-		increaseCallCount();
+		recordLookup();
 
 		switch (id) {
 		case constants::ch1Id:
@@ -62,7 +66,7 @@ namespace registry
 	// expression must be a modifiable lvalue
 	const Reading* peekChannel(ChannelId id)
 	{
-		increaseCallCount();
+		recordLookup();
 
 		const auto* channel{ findChannel(id) };
 
@@ -71,7 +75,7 @@ namespace registry
 
 	std::optional<Reading> readChannel(ChannelId id)
 	{
-		increaseCallCount();
+		recordLookup();
 
 		const auto* channel{ findChannel(id) };
 
@@ -93,6 +97,6 @@ namespace registry
 
 	std::uint64_t lookupCount()
 	{
-		return increaseCallCount(true);
+		return lookupCounter(false);
 	}
 }
