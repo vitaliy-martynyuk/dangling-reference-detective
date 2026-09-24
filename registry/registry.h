@@ -3,7 +3,6 @@
 
 #include "types.h"
 #include "constants.h"
-#include <optional>
 
 namespace registry
 {
@@ -20,7 +19,8 @@ namespace registry
 		}
 	}
 
-	std::optional<Reading&> channelRef(ChannelId id);
+	Reading& channelRef(ChannelId id);
+	Reading* findChannel(ChannelId id);
 }
 
 #endif

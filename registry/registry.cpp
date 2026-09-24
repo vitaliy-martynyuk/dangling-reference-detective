@@ -3,6 +3,7 @@
 #include "constants.h"
 #include <cassert>
 #include <optional>
+#include <cstdlib>
 
 namespace registry
 {
@@ -16,7 +17,6 @@ namespace registry
 
 	Reading& channelRef(ChannelId id)
 	{
-		const Reading& dummy{ 0.0 };
 		switch (id) {
 		case constants::ch1Id:
 			return channel1;
@@ -28,7 +28,23 @@ namespace registry
 			return channel4;
 		default:
 			assert(false && "Invalid ChannelId!");
-			return dummy;
+			std::abort();
+		}
+	}
+
+	Reading* findChannel(ChannelId id)
+	{
+		switch (id) {
+		case constants::ch1Id:
+			return &channel1;
+		case constants::ch2Id:
+			return &channel2;
+		case constants::ch3Id:
+			return &channel3;
+		case constants::ch4Id:
+			return &channel4;
+		default:
+			return nullptr;
 		}
 	}
 }
