@@ -1,6 +1,7 @@
 #include "io.h"
 #include <iostream>
 #include <limits>
+#include <cstdlib>
 
 namespace io
 {
@@ -41,7 +42,7 @@ namespace io
 	{
 		void channelId()
 		{
-			cout << "Invalid channel id! (must be 1 - 4)\n";
+			cout << "Invalid channel id! (must be 1 - 4) or 0 to quit\n";
 		}
 
 		void offset()
