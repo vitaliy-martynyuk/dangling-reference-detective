@@ -24,6 +24,7 @@ namespace registry
 	Reading* findChannel(ChannelId id);
 	const Reading* peekChannel(ChannelId id);
 	std::optional<Reading> readChannel(ChannelId id);
+	bool calibrate(ChannelId id, Reading offset, Reading* previousOut = nullptr);
 }
 
 #endif

@@ -22,7 +22,7 @@ int main()
 	std::cout << *v2 << '\n';
 	std::cout << *v3 << '\n';
 	std::cout << *v4 << '\n';
-	std::cout << v5 << '\n';
+	std::cout << (v5 && *v5) << '\n';
 
 	v5 = v1;
 	*v5 = 12;
@@ -40,7 +40,7 @@ int main()
 	std::cout << *cv2 << '\n';
 	std::cout << *cv3 << '\n';
 	std::cout << *cv4 << '\n';
-	std::cout << cv5 << '\n';
+	std::cout << (cv5 && *cv5) << '\n';
 
 	cv5 = cv1;
 
@@ -59,6 +59,18 @@ int main()
 	std::cout << *cv1 << '\n';
 	std::cout << *rv1 << '\n';
 	std::cout << (rv2 && *rv2) << '\n';
+	std::cout << "-------------------\n\n";
+
+	std::cout << *cv1 << '\n';
+	std::cout << *cv2 << '\n';
+	std::cout << *cv3 << '\n';
+	std::cout << *cv4 << '\n';
+
+	std::cout << registry::calibrate(constants::ch1Id, -2, v2) << '\n';
+	std::cout << *cv1 << '\n';
+	std::cout << *cv2 << '\n';
+	std::cout << *cv3 << '\n';
+	std::cout << *cv4 << '\n';
 	std::cout << "-------------------\n\n";
 
 	return 0;
