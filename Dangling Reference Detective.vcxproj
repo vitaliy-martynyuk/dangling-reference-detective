@@ -145,10 +145,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="io\io.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="registry\registry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="io\io.h" />
     <ClInclude Include="registry\constants.h" />
     <ClInclude Include="registry\registry.h" />
     <ClInclude Include="registry\tests.h" />
