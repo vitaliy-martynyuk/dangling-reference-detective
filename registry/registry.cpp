@@ -5,67 +5,45 @@
 #include <cstdlib>
 #include <optional>
 #include <cstdint>
+#include <iostream>
 
 namespace registry
 {
 	namespace
 	{
 		using std::uint64_t;
-		Reading channel1{ constants::ch1Id };
-		Reading channel2{ constants::ch2Id };
-		Reading channel3{ constants::ch3Id };
-		Reading channel4{ constants::ch4Id };
+		Reading channel1{ 12.5 };
+		Reading channel2{ 18.2 };
+		Reading channel3{ 14.0 };
+		Reading channel4{ 22.9 };
 
-		uint64_t increaseCallCount(char flag = '\n')
+		uint64_t increaseCallCount(bool returnCount = false)
 		{
-			static uint64_t channelRefCallCount{ 0 };
-			static uint64_t findChannelCallCount{ 0 };
-			static uint64_t peekChannelCallCount{ 0 };
-			static uint64_t readChannelCallCount{ 0 };
+			static uint64_t callCount{ 0 };
+			if (returnCount)
+				return callCount;
 
-			switch (flag) {
-			case 'c':
-				++channelRefCallCount;
-				break;
-			case 'f':
-				++findChannelCallCount;
-				break;
-			case 'p':
-				++peekChannelCallCount;
-				break;
-			case 'r':
-				++readChannelCallCount;
-				break;
-			default:
-				return channelRefCallCount + findChannelCallCount + peekChannelCallCount + readChannelCallCount;
-			}
-
+			++callCount;
 			return 0;
 		}
 	}
 
 	Reading& channelRef(ChannelId id)
 	{
-		increaseCallCount('c');
+		increaseCallCount();
 
-		switch (id) {
-		case constants::ch1Id:
-			return channel1;
-		case constants::ch2Id:
-			return channel2;
-		case constants::ch3Id:
-			return channel3;
-		case constants::ch4Id:
-			return channel4;
-		default:
+		auto* channel{ findChannel(id) };
+		if (!channel) {
 			assert(false && "Invalid ChannelId!");
 			std::abort();
 		}
+
+		return *channel;
 	}
 
 	Reading* findChannel(ChannelId id)
 	{
-		increaseCallCount('f');
+		increaseCallCount();
 
 		switch (id) {
 		case constants::ch1Id:
@@ -84,20 +62,20 @@ namespace registry
 	// expression must be a modifiable lvalue
 	const Reading* peekChannel(ChannelId id)
 	{
-		increaseCallCount('p');
+		increaseCallCount();
 
-		const auto* channelRef{ findChannel(id) };
+		const auto* channel{ findChannel(id) };
 
-		return channelRef;
+		return channel;
 	}
 
 	std::optional<Reading> readChannel(ChannelId id)
 	{
-		increaseCallCount('r');
+		increaseCallCount();
 
-		const auto* channelRef{ findChannel(id) };
+		const auto* channel{ findChannel(id) };
 
-		if (channelRef) return *channelRef;
+		if (channel) return *channel;
 
 		return std::nullopt;
 	}
@@ -115,6 +93,6 @@ namespace registry
 
 	std::uint64_t lookupCount()
 	{
-		return increaseCallCount();
+		return increaseCallCount(true);
 	}
 }
