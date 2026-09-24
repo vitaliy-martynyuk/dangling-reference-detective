@@ -4,6 +4,9 @@
 
 int main()
 {
+	std::cout << registry::lookupCount() << '\n';
+	std::cout << "-------------------\n\n";
+
 	std::cout << std::boolalpha;
 	std::cout << registry::channelRef(constants::ch1Id) << '\n';
 	std::cout << registry::channelRef(constants::ch2Id) << '\n';
@@ -71,6 +74,9 @@ int main()
 	std::cout << *cv2 << '\n';
 	std::cout << *cv3 << '\n';
 	std::cout << *cv4 << '\n';
+	std::cout << "-------------------\n\n";
+
+	std::cout << registry::lookupCount() << '\n';
 	std::cout << "-------------------\n\n";
 
 	return 0;

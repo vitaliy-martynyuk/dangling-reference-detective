@@ -97,4 +97,9 @@ namespace registry
 
 		return true;
 	}
+
+	int lookupCount()
+	{
+		return channelRefCallCount + findChannelCallCount + peekChannelCallCount + readChannelCallCount;
+	}
 }
