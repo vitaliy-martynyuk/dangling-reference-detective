@@ -4,6 +4,7 @@
 
 int main()
 {
+	std::cout << std::boolalpha;
 	std::cout << registry::channelRef(constants::ch1Id) << '\n';
 	std::cout << registry::channelRef(constants::ch2Id) << '\n';
 	std::cout << registry::channelRef(constants::ch3Id) << '\n';
@@ -44,6 +45,20 @@ int main()
 	cv5 = cv1;
 
 	std::cout << *cv5 << '\n';
+	std::cout << "-------------------\n\n";
+
+	auto rv1{ registry::readChannel(constants::ch1Id) };
+	auto rv2{ registry::readChannel(5) };
+
+	std::cout << *cv1 << '\n';
+	std::cout << *rv1 << '\n';
+	std::cout << (rv2 && *rv2) << '\n';
+
+	rv1 = 999;
+
+	std::cout << *cv1 << '\n';
+	std::cout << *rv1 << '\n';
+	std::cout << (rv2 && *rv2) << '\n';
 	std::cout << "-------------------\n\n";
 
 	return 0;

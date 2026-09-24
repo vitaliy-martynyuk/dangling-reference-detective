@@ -2,8 +2,8 @@
 #include "registry.h"
 #include "constants.h"
 #include <cassert>
-#include <optional>
 #include <cstdlib>
+#include <optional>
 
 namespace registry
 {
@@ -54,5 +54,21 @@ namespace registry
 		const auto* channelRef{ findChannel(id) };
 
 		return channelRef;
+	}
+
+	std::optional<Reading> readChannel(ChannelId id)
+	{
+		switch (id) {
+		case constants::ch1Id:
+			return channel1;
+		case constants::ch2Id:
+			return channel2;
+		case constants::ch3Id:
+			return channel3;
+		case constants::ch4Id:
+			return channel4;
+		default:
+			return std::nullopt;
+		}
 	}
 }
