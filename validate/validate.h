@@ -8,6 +8,7 @@ namespace validate
 	inline bool isChannelIdValid(int id)
 	{
 		switch (id) {
+		case 0:
 		case constants::ch1Id:
 		case constants::ch2Id:
 		case constants::ch3Id:
@@ -20,7 +21,7 @@ namespace validate
 
 	inline bool isOffsetValid(double offset)
 	{
-		return (offset >= 0.1) && (offset <= 99.9);
+		return (offset >= -99.9) && (offset <= 99.9);
 	}
 }
 
