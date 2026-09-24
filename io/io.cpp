@@ -1,5 +1,4 @@
 #include "io.h"
-#include "../registry/types.h"
 #include <iostream>
 #include <limits>
 
@@ -13,12 +12,12 @@ namespace io
 		using std::streamsize;
 	}
 
-	ChannelId getChannelId(bool previous = false)
+	int getChannelId(bool previous = false)
 	{
 		if (previous) cout << "Enter previous channel id (1-4): ";
 		else cout << "Enter channel id (1-4) or 0 to quit: ";
 
-		ChannelId input{};
+		int input{};
 		cin >> input;
 
 		return input;

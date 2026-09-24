@@ -155,6 +155,7 @@
     <ClInclude Include="registry\registry.h" />
     <ClInclude Include="registry\tests.h" />
     <ClInclude Include="registry\types.h" />
+    <ClInclude Include="validate\validate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
