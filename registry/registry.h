@@ -4,6 +4,7 @@
 #include "types.h"
 #include "constants.h"
 #include <optional>
+#include <cstdint>
 
 namespace registry
 {
@@ -25,7 +26,7 @@ namespace registry
 	const Reading* peekChannel(ChannelId id);
 	std::optional<Reading> readChannel(ChannelId id);
 	bool calibrate(ChannelId id, Reading offset, Reading* previousOut = nullptr);
-	int lookupCount();
+	std::uint64_t lookupCount();
 }
 
 #endif
