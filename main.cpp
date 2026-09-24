@@ -1,83 +1,40 @@
 #include "registry/registry.h"
 #include "registry/constants.h"
+#include "session/session.h"
+#include "io/io.h"
 #include <iostream>
 
 int main()
 {
-	std::cout << registry::lookupCount() << '\n';
-	std::cout << "-------------------\n\n";
+	std::cout << "Channel 1: " << *registry::peekChannel(constants::ch1Id) << '\n';
+	std::cout << "Channel 2: " << *registry::peekChannel(constants::ch2Id) << '\n';
+	std::cout << "Channel 3: " << *registry::peekChannel(constants::ch3Id) << '\n';
+	std::cout << "Channel 4: " << *registry::peekChannel(constants::ch4Id) << "\n\n";
 
-	std::cout << std::boolalpha;
-	std::cout << registry::channelRef(constants::ch1Id) << '\n';
-	std::cout << registry::channelRef(constants::ch2Id) << '\n';
-	std::cout << registry::channelRef(constants::ch3Id) << '\n';
-	std::cout << registry::channelRef(constants::ch4Id) << '\n';
+	while (true) {
+		auto channelId{ session::setChannelId() };
+		if (channelId == 0) break;
 
-	std::cout << "-------------------\n\n";
+		auto offset{ session::setOffset() };
+		auto prevChannelId{ session::setChannelId(true) };
 
-	Reading* v1{ registry::findChannel(constants::ch1Id) };
-	Reading* v2{ registry::findChannel(constants::ch2Id) };
-	Reading* v3{ registry::findChannel(constants::ch3Id) };
-	Reading* v4{ registry::findChannel(constants::ch4Id) };
-	Reading* v5{ registry::findChannel(5) };
+		auto channel{ registry::peekChannel(channelId) };
+		auto prevChannel{ registry::findChannel(prevChannelId) };
 
-	std::cout << *v1 << '\n';
-	std::cout << *v2 << '\n';
-	std::cout << *v3 << '\n';
-	std::cout << *v4 << '\n';
-	std::cout << (v5 && *v5) << '\n';
+		io::printChannelInfo(channelId, *channel);
+		if (prevChannel) io::printChannelInfo(prevChannelId, *prevChannel);
 
-	v5 = v1;
-	*v5 = 12;
+		registry::calibrate(channelId, offset, prevChannel);
+		io::printChannelInfo(channelId, *channel);
+		if (prevChannel) io::printChannelInfo(prevChannelId, *prevChannel);
+		std::cout << "----------------\n\n";
+	}
 
-	std::cout << *v5 << '\n';
-	std::cout << "-------------------\n\n";
-
-	const Reading* cv1{ registry::peekChannel(constants::ch1Id) };
-	const Reading* cv2{ registry::peekChannel(constants::ch2Id) };
-	const Reading* cv3{ registry::peekChannel(constants::ch3Id) };
-	const Reading* cv4{ registry::peekChannel(constants::ch4Id) };
-	const Reading* cv5{ registry::peekChannel(5) };
-
-	std::cout << *cv1 << '\n';
-	std::cout << *cv2 << '\n';
-	std::cout << *cv3 << '\n';
-	std::cout << *cv4 << '\n';
-	std::cout << (cv5 && *cv5) << '\n';
-
-	cv5 = cv1;
-
-	std::cout << *cv5 << '\n';
-	std::cout << "-------------------\n\n";
-
-	auto rv1{ registry::readChannel(constants::ch1Id) };
-	auto rv2{ registry::readChannel(5) };
-
-	std::cout << *cv1 << '\n';
-	std::cout << *rv1 << '\n';
-	std::cout << (rv2 && *rv2) << '\n';
-
-	rv1 = 999;
-
-	std::cout << *cv1 << '\n';
-	std::cout << *rv1 << '\n';
-	std::cout << (rv2 && *rv2) << '\n';
-	std::cout << "-------------------\n\n";
-
-	std::cout << *cv1 << '\n';
-	std::cout << *cv2 << '\n';
-	std::cout << *cv3 << '\n';
-	std::cout << *cv4 << '\n';
-
-	std::cout << registry::calibrate(constants::ch1Id, -2, v2) << '\n';
-	std::cout << *cv1 << '\n';
-	std::cout << *cv2 << '\n';
-	std::cout << *cv3 << '\n';
-	std::cout << *cv4 << '\n';
-	std::cout << "-------------------\n\n";
-
-	std::cout << registry::lookupCount() << '\n';
-	std::cout << "-------------------\n\n";
+	std::cout << "Total functions called: " << registry::lookupCount() << '\n';
+	std::cout << "Channel 1: " << *registry::peekChannel(constants::ch1Id) << '\n';
+	std::cout << "Channel 2: " << *registry::peekChannel(constants::ch2Id) << '\n';
+	std::cout << "Channel 3: " << *registry::peekChannel(constants::ch3Id) << '\n';
+	std::cout << "Channel 4: " << *registry::peekChannel(constants::ch4Id) << '\n';
 
 	return 0;
 }

@@ -145,14 +145,19 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="io\io.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="registry\registry.cpp" />
+    <ClCompile Include="session\session.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="io\io.h" />
     <ClInclude Include="registry\constants.h" />
     <ClInclude Include="registry\registry.h" />
     <ClInclude Include="registry\tests.h" />
     <ClInclude Include="registry\types.h" />
+    <ClInclude Include="session\session.h" />
+    <ClInclude Include="validate\validate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
