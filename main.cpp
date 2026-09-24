@@ -6,6 +6,11 @@
 
 int main()
 {
+	std::cout << "Channel 1: " << *registry::peekChannel(constants::ch1Id) << '\n';
+	std::cout << "Channel 2: " << *registry::peekChannel(constants::ch2Id) << '\n';
+	std::cout << "Channel 3: " << *registry::peekChannel(constants::ch3Id) << '\n';
+	std::cout << "Channel 4: " << *registry::peekChannel(constants::ch4Id) << "\n\n";
+
 	while (true) {
 		auto channelId{ session::setChannelId() };
 		if (channelId == 0) break;
@@ -13,7 +18,7 @@ int main()
 		auto offset{ session::setOffset() };
 		auto prevChannelId{ session::setChannelId(true) };
 
-		auto channel{ registry::findChannel(channelId) };
+		auto channel{ registry::peekChannel(channelId) };
 		auto prevChannel{ registry::findChannel(prevChannelId) };
 
 		io::printChannelInfo(channelId, *channel);
@@ -26,6 +31,10 @@ int main()
 	}
 
 	std::cout << "Total functions called: " << registry::lookupCount() << '\n';
+	std::cout << "Channel 1: " << *registry::peekChannel(constants::ch1Id) << '\n';
+	std::cout << "Channel 2: " << *registry::peekChannel(constants::ch2Id) << '\n';
+	std::cout << "Channel 3: " << *registry::peekChannel(constants::ch3Id) << '\n';
+	std::cout << "Channel 4: " << *registry::peekChannel(constants::ch4Id) << '\n';
 
 	return 0;
 }

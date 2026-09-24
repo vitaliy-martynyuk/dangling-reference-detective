@@ -1,22 +1,14 @@
 #ifndef VALIDATE_H
 #define VALIDATE_H
 
-#include "../registry/constants.h"
+#include "../registry/registry.h"
+#include "../registry/types.h"
 
 namespace validate
 {
 	inline bool isChannelIdValid(int id)
 	{
-		switch (id) {
-		case 0:
-		case constants::ch1Id:
-		case constants::ch2Id:
-		case constants::ch3Id:
-		case constants::ch4Id:
-			return true;
-		default:
-			return false;
-		}
+		return registry::isValidChannelId(static_cast<ChannelId>(id)) || id == 0;
 	}
 
 	inline bool isOffsetValid(double offset)

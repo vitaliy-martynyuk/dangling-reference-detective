@@ -8,7 +8,7 @@ namespace session
 	{
 		while (true) {
 			auto channelId{ io::getChannelId(previous) };
-			if (!validate::isChannelIdValid(channelId) || io::helpers::recoverInputStream()) {
+			if (io::helpers::recoverInputStream() || !validate::isChannelIdValid(channelId)) {
 				io::errors::channelId();
 				continue;
 			}
@@ -21,7 +21,7 @@ namespace session
 	{
 		while (true) {
 			auto offset{ io::getOffset() };
-			if (!validate::isOffsetValid(offset) || io::helpers::recoverInputStream()) {
+			if (io::helpers::recoverInputStream() || !validate::isOffsetValid(offset)) {
 				io::errors::offset();
 				continue;
 			}
