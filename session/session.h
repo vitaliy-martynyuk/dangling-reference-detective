@@ -5,8 +5,8 @@
 
 namespace session
 {
-	const ChannelId setChannelId(bool previous = false);
-	const double setOffset();
+	ChannelId setChannelId(bool previous = false);
+	double setOffset();
 }
 
 #endif

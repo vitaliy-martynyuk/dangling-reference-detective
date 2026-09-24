@@ -4,7 +4,7 @@
 
 namespace session
 {
-	const ChannelId setChannelId(bool previous)
+	ChannelId setChannelId(bool previous)
 	{
 		while (true) {
 			auto channelId{ io::getChannelId(previous) };
@@ -17,7 +17,7 @@ namespace session
 		}
 	}
 
-	const double setOffset()
+	double setOffset()
 	{
 		while (true) {
 			auto offset{ io::getOffset() };
