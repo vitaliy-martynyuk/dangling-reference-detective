@@ -47,4 +47,12 @@ namespace registry
 			return nullptr;
 		}
 	}
+
+	// expression must be a modifiable lvalue
+	const Reading* peekChannel(ChannelId id)
+	{
+		const auto* channelRef{ findChannel(id) };
+
+		return channelRef;
+	}
 }

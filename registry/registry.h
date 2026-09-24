@@ -21,6 +21,7 @@ namespace registry
 
 	Reading& channelRef(ChannelId id);
 	Reading* findChannel(ChannelId id);
+	const Reading* peekChannel(ChannelId id);
 }
 
 #endif
